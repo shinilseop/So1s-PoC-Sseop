@@ -21,6 +21,18 @@ public class BuildController {
 
     @PostMapping("/upload")
     public String saveFile(@RequestParam String itemName, @RequestParam MultipartFile attachFile) throws IOException {
-        return buildService.saveFile(itemName, attachFile)? "/uploadSuccess" : "/uploadFailed";
+        if(!buildService.saveFile(itemName, attachFile)) {
+            return "/uploadFailed";
+        }
+
+        if(!buildService.buildImage()){
+            return "/buildFailed";
+        }
+
+        if(!buildService.updateInferenceServer()){
+            return "/updateFailed";
+        }
+
+        return "/Success";
     }
 }
