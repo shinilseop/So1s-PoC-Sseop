@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-api-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-server
+  template:
+    metadata:
+      name: poc-api
+      labels:
+        app: api-server
+    spec:
+      volumes:
+      - name: pv-poc-storage
+        persistentVolumeClaim:
+          claimName: pv-poc-claim
+      containers:
+      - name: my-poc-api
+        image: poc-api:0.1
+        ports:
+        - containerPort: 8080
+          name: web-port
+        volumeMounts:
+        - mountPath: "/models"
+          name: pv-poc-storage
