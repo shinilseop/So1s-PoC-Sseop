@@ -1,7 +1,7 @@
 # PoC
 <center>시스템 구조</center>
 
-![architecture](./readme/architecture.png)
+![architecture](./readme_images/architecture.png)
 ## 기능
 
 ### 기능 1. 모델 업데이트<br>
