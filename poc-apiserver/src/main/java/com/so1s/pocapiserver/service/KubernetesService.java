@@ -62,7 +62,7 @@ public class KubernetesService {
         try {
             client.apps().deployments().inNamespace(namespace).withName("deployment-inference-server").delete();
             System.out.println("Delete Old Version Inference Server.");
-            Thread.sleep(10);
+            Thread.sleep(1000*10);
         } catch (Exception e) {
             System.out.println("Not Delete.");
         }
