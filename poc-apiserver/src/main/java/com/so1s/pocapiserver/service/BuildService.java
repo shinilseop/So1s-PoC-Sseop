@@ -12,7 +12,7 @@ public class BuildService {
         try {
             String filename = file.getOriginalFilename();
             String path = System.getProperty("user.dir");
-            file.transferTo(new File(path+"/models/" + filename));
+            file.transferTo(new File("/models/" + filename));
         } catch (Exception e) {
             e.printStackTrace();
             return false;
