@@ -1,0 +1,9 @@
+# bentoml==0.13.1
+# transformers==4.11.0
+# # torch==1.7.0
+bentoml
+bentoctl
+grpcio
+transformers
+torch
+torchvision

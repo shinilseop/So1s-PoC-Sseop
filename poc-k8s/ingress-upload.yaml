@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-poc-uploadk
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /upload/$2
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - path: /upload(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: api-server
+            port:
+              number: 80
