@@ -5,7 +5,7 @@ metadata:
   labels:
     type: local
 spec:
-  storageClassName: local
+  storageClassName: manual
   capacity:
     storage: 20Gi
   accessModes:
@@ -16,9 +16,10 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  namespace: poc
   name: pv-poc-claim
 spec:
-  storageClassName: local
+  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:

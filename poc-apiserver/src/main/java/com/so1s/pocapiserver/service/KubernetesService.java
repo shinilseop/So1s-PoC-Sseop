@@ -19,14 +19,14 @@ import org.springframework.stereotype.Service;
 public class KubernetesService {
 
     private KubernetesClient client;
-    private final String namespace = "default";
+    private final String namespace = "poc";
     private final String masterURL = "http://localhost:8080/";
     private final String oauthToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6InZRSjhvci1GUW14OElCVnJZb3ZlMG51Q1RWT2tlbFJlOEpSWjRFU1pvM2sifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJwb2MiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlY3JldC5uYW1lIjoicG9jLXRva2VuIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6InBvYy1hY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiNDgzMzBlZTgtZWY4OS00MjJlLTkwYTItNThhMzlhY2NmYzAyIiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50OnBvYzpwb2MtYWNjb3VudCJ9.PyD05lJvJiVs4OKXWSk5yX7uOGcehO-MjGDbq3f0LBs6ym4cpswds9biwmolwocU4c_507GunaLCd82y64EaZelsH6CiLSbQP1RAHaCxBC4XYQ5Zz1Q7kP9atJLGCA-Oa6Woje5oc0Z8mwDa6JLM3bj-be9mc6EuGjqvnssP3zeO6DFTWjFOonIvpDYb4GVXO6ATRZ38KpE2WbbtJEXVLFR9h8QhiKKlp04GmvhXKMVQj_UK8555_DVYsJYUI1Lo1sBtnjdf604-xF8WQQVooWe430e4HPa2kaO59CIx2-X51hKa_kIMBjaqlw768oT9e1pr4hb48qBKab79STem_g";
 
     public KubernetesService() {
-        Config config = new ConfigBuilder().withOauthToken(oauthToken).build();
-        this.client = new KubernetesClientBuilder().withConfig(config).build();
-//        this.client = new DefaultKubernetesClient();
+//        Config config = new ConfigBuilder().withOauthToken(oauthToken).build();
+//        this.client = new KubernetesClientBuilder().withConfig(config).build();
+        this.client = new DefaultKubernetesClient();
     }
 
     public boolean buildImage() {

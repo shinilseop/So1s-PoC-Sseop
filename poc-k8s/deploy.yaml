@@ -14,7 +14,7 @@ spec:
       labels:
         app: api-server
     spec:
-      serviceAccountName: poc-account
+      serviceAccountName: poc-account # 변경사항
       volumes:
       - name: pv-poc-storage
         persistentVolumeClaim:
