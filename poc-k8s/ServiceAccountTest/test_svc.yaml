@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: poc
+  name: api-server
+spec:
+  ports:
+    - name: web-port
+      port: 80
+      targetPort: 8080
+  selector:
+    app: api-server
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: poc
+  name: api-server
+spec:
+  ports:
+    - name: web-port
+      port: 80
+      targetPort: 8080
+  selector:
+    app: api-server
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: poc
+  name: inference-server
+spec:
+  ports:
+    - name: flask-port
+      port: 5000
+      targetPort: 5000
+  selector:
+    app: inference-server
+  type: ClusterIP

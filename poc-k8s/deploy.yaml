@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: poc
+  name: deployment-api-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-server
+  template:
+    metadata:
+      name: poc-api
+      labels:
+        app: api-server
+    spec:
+      serviceAccountName: poc-account
+      volumes:
+      - name: pv-poc-storage
+        persistentVolumeClaim:
+          claimName: pv-poc-claim
+      containers:
+      - name: my-poc-api
+        image: poc-api:0.1
+        ports:
+        - containerPort: 8080
+          name: web-port
+        volumeMounts:
+        - mountPath: "/models"
+          name: pv-poc-storage
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: poc
+  name: deployment-inference-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: inference-server
+  template:
+    metadata:
+      name: poc-infer
+      labels:
+        app: inference-server
+    spec:
+      containers:
+      - name: my-poc-infer
+        image: poc-infer:0.1
+        ports:
+        - containerPort: 5000
+          name: flask-port

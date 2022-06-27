@@ -1,0 +1,105 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: poc
+  name: ingress-poc
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - path: /api-server(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: api-server
+            port:
+              number: 80
+      - path: /inference(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: inference-server
+            port:
+              number: 5000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: poc
+  name: ingress-poc-upload
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /upload/$2
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - path: /upload(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: api-server
+            port:
+              number: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: poc
+  name: api-server
+spec:
+  ports:
+    - name: web-port
+      port: 80
+      targetPort: 8080
+  selector:
+    app: api-server
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: poc
+  name: inference-server
+spec:
+  ports:
+    - name: flask-port
+      port: 5000
+      targetPort: 5000
+  selector:
+    app: inference-server
+  type: ClusterIP
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  namespace: poc
+  name: poc-pv
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/Users/sseop/Study/mnt/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: poc
+  name: pv-poc-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
